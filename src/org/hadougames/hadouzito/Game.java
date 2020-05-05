@@ -1,9 +1,14 @@
 package org.hadougames.hadouzito;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 public class Game extends Canvas implements Runnable, KeyListener {
 	/* Attributes */
@@ -20,10 +25,12 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	
 	/* Constants */
 	private final double FPS = 30.0;
-	private final int WIDTH  = 640;
-	private final int HEIGHT = 480;
-	private final int SCALE  = 1;
-	private final boolean DEBUG  = true;
+	private final int WIDTH  = 80;
+	private final int HEIGHT = 60;
+	private final int SCALE  = 10;
+	private final boolean DEBUG  = false;
+	
+	private BufferedImage image;
 	
 	/* Constructor */
 	public Game() {		
@@ -38,8 +45,11 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		// Loads the Screen
 		screen = new Screen("Hadouzito Adventures - Aplha");
 		screen.load(this);
-		// Loads the Hero
-		hero = new Hero();
+		
+		// Loads the Hero (pos_x: 0, pos_y: 0);
+		hero = new Hero(0, 30);
+		
+		image = new BufferedImage(WIDTH, HEIGHT,BufferedImage.TYPE_INT_BGR);
 		
 		// Starts Key Listening
 		this.addKeyListener(this);
@@ -63,6 +73,29 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	// Loop game render
 	public void render() {
 		//showDebug("render ...");
+		//System.out.println("Game render ...");
+
+		BufferStrategy bs = this.getBufferStrategy();
+		if ( bs == null ) {
+			this.createBufferStrategy(3);
+			return;
+		}
+		Graphics g = image.getGraphics();
+		
+		// Draw the background retangle
+		g.setColor(new Color(100, 100, 255));
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		//
+		Graphics2D g2 = (Graphics2D) g; // Cast to Graphics2D
+		g2.drawImage(hero.getFrame(), hero.getPosX(), hero.getPosY(), null);
+		
+		// ----------
+		
+		g.dispose(); // Garbage collector
+		g = bs.getDrawGraphics();
+		g.drawImage(image, 0, 0, (WIDTH*SCALE), (HEIGHT*SCALE),null);
+		bs.show();
 	}
 	
 	// Starts the game
