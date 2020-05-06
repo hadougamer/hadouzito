@@ -3,23 +3,21 @@ package org.hadougames.hadouzito;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class Hero {
+public class Hero extends Character {
+	private String spritePath = "/hadouzito.png";
 	private String name, action;
 	private int points;
 	
-	// Hero Sprite
-	private Sprite sprite = new Sprite("/hadouzito.png");
-	
-	// Hero frames
-	private int currentFrameNumber = 0;
-	private ArrayList<BufferedImage> frames = new ArrayList<BufferedImage>();
-	
-	private int pos_x, pos_y;
-	
 	public Hero(int pos_x, int pos_y) {
-		name  = "Hadouzito";
+		// Sets the character Sprite
+		setSprite( spritePath );
+		
+		setName("Hadouzito");
+		setWeight(4.5);
+		
 		action = "stop";
 		points = 0;
+		
 		this.pos_x = pos_x;
 		this.pos_y = pos_y;
 		 
@@ -45,11 +43,6 @@ public class Hero {
 				action = "stop";
 			break;	
 		}
-		
-	}
-	
-	public String getName() {
-		return name;
 	}
 	
 	public String getAction() {
@@ -87,13 +80,26 @@ public class Hero {
 	
 	private void loadFrames( String act ) {
 		cleanFrames();
-		if ( act == "stop" ) {
-			frames.add(sprite.getSprite(16, 0, 16, 16));	
-		} else {
-			frames.add(sprite.getSprite(0, 0, 16, 16));
-			frames.add(sprite.getSprite(16, 0, 16, 16));
-			frames.add(sprite.getSprite(32, 0, 16, 16));
-			frames.add(sprite.getSprite(48, 0, 16, 16));
+		// Filter action
+		switch( act ) {
+			case "walk-right":		
+			case "walk-left":
+				frames.add(sprite.getSprite(0, 0, 16, 16));
+				frames.add(sprite.getSprite(16, 0, 16, 16));
+				frames.add(sprite.getSprite(32, 0, 16, 16));
+				frames.add(sprite.getSprite(48, 0, 16, 16));
+			break;
+			case "jump":
+				frames.add(sprite.getSprite(0, 16, 16, 16));
+				frames.add(sprite.getSprite(16, 16, 16, 16));
+				frames.add(sprite.getSprite(32, 16, 16, 16));
+				frames.add(sprite.getSprite(32, 16, 16, 16));
+				frames.add(sprite.getSprite(16, 16, 16, 16));
+				frames.add(sprite.getSprite(0, 16, 16, 16));
+			break;
+			default:
+				frames.add(sprite.getSprite(16, 0, 16, 16));
+			break;	
 		}
 	}
 	

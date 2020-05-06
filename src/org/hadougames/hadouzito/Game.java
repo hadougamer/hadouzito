@@ -25,9 +25,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	
 	/* Constants */
 	private final double FPS = 30.0;
-	private final int WIDTH  = 80;
-	private final int HEIGHT = 60;
-	private final int SCALE  = 10;
+	private final int WIDTH  = 160;
+	private final int HEIGHT = 120;
+	private final int SCALE  = 5;
 	private final boolean DEBUG  = false;
 	
 	private BufferedImage image;
@@ -47,7 +47,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		screen.load(this);
 		
 		// Loads the Hero (pos_x: 0, pos_y: 0);
-		hero = new Hero(0, 30);
+		hero = new Hero(0, (HEIGHT - 16 - 10));
 		
 		image = new BufferedImage(WIDTH, HEIGHT,BufferedImage.TYPE_INT_BGR);
 		
