@@ -47,7 +47,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		screen.load(this);
 		
 		// Loads the Hero (pos_x: 0, pos_y: 0);
-		hero = new Hero(0, (HEIGHT - 16 - 10));
+		hero = new Hero(0, ( HEIGHT - 16 - 10) );
 		
 		image = new BufferedImage(WIDTH, HEIGHT,BufferedImage.TYPE_INT_BGR);
 		
@@ -88,7 +88,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		
 		//
 		Graphics2D g2 = (Graphics2D) g; // Cast to Graphics2D
-		g2.drawImage(hero.getFrame(), hero.getPosX(), hero.getPosY(), null);
+		g2.drawImage(hero.getFrame(), (int) hero.getPosX(), (int) hero.getPosY(), null);
 		
 		// ----------
 		

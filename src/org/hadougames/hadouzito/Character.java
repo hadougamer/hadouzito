@@ -9,7 +9,7 @@ abstract class Character extends Physic {
 	protected ArrayList<BufferedImage> frames = new ArrayList<BufferedImage>();
 	
 	// State
-	protected int pos_x, pos_y;
+	protected double pos_x, pos_y;
 	protected double weight = 4.0;
 	
 	protected String spritePath, name;
@@ -34,5 +34,9 @@ abstract class Character extends Physic {
 	
 	public double getWeight() {
 		return weight;
+	}
+	
+	protected void cleanFrames() {
+		frames.clear();
 	}
 }
