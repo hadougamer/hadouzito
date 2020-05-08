@@ -18,6 +18,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	private boolean isRunning;
 	// Game Thread
 	private Thread thread;
+	// Game Level
+	private Level level;
+	// Current level number
+	private int curLevel = 1;
 	// Game Hero
 	private Hero hero;
 	// Game Screen
@@ -46,8 +50,12 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		screen = new Screen("Hadouzito Adventures - Aplha");
 		screen.load(this);
 		
+		// Loads the level
+		level = new Level();
+		level.load(curLevel);
+		
 		// Loads the Hero (pos_x: 0, pos_y: 0);
-		hero = new Hero(0, ( HEIGHT - 16 - 10) );
+		hero = new Hero(16, ( HEIGHT - 16 - 7) );
 		
 		image = new BufferedImage(WIDTH, HEIGHT,BufferedImage.TYPE_INT_BGR);
 		
@@ -72,9 +80,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	
 	// Loop game render
 	public void render() {
-		//showDebug("render ...");
-		//System.out.println("Game render ...");
-
 		BufferStrategy bs = this.getBufferStrategy();
 		if ( bs == null ) {
 			this.createBufferStrategy(3);
@@ -88,8 +93,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		
 		//
 		Graphics2D g2 = (Graphics2D) g; // Cast to Graphics2D
-		g2.drawImage(hero.getFrame(), (int) hero.getPosX(), (int) hero.getPosY(), null);
-		
+		level.render(g2);
+		hero.render(g2);
 		// ----------
 		
 		g.dispose(); // Garbage collector

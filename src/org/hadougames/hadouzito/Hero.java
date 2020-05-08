@@ -1,5 +1,6 @@
 package org.hadougames.hadouzito;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class Hero extends Character {
@@ -93,8 +94,7 @@ public class Hero extends Character {
 			frameControl = 0;
 			currentFrameNumber++;	
 		}
-		
-		
+
 		return frame;
 	}
 	
@@ -118,9 +118,19 @@ public class Hero extends Character {
 				if( dirRight ) {
 					frames.add(sprite.getSprite(16, 0, 16, 16));	
 				} else {
-					frames.add(sprite.getSprite(16, 15, 16, 16));
+					frames.add(sprite.getSprite(16, 16, 16, 16));
 				}
 			break;	
 		}
+	}
+	
+	public void render( Graphics g ) {
+		g.drawImage(
+			getFrame(), 
+			(int) getPosX(), 
+			(int) getPosY(), 
+			null
+		);
+
 	}
 }
