@@ -25,8 +25,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	
 	/* Constants */
 	private final double FPS = 30.0;
-	private final int WIDTH  = 160;
-	private final int HEIGHT = 120;
+	private final int WIDTH  = 320;
+	private final int HEIGHT = 200;
 	private final int SCALE  = 5;
 	private final boolean DEBUG  = false;
 	
