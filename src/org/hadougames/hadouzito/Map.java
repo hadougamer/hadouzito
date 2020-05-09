@@ -43,8 +43,7 @@ public class Map {
 	
 	// Analyze the pixels
 	private void analyze() {
-		int[] imgPixels = new int[mapImage.getWidth() * mapImage.getHeight()]; 
-		int redCounter = 0;
+		int[] imgPixels = new int[mapImage.getWidth() * mapImage.getHeight()];
 		
 		mapImage.getRGB(
 				0, 
@@ -59,8 +58,6 @@ public class Map {
 		int pixelPos=0;
 		int posX = 0;
 		int posY = 0;
-		int wLimit = 4;
-		int hLimit = 4;
 		
 		for ( int w=0; w<mapImage.getWidth(); w++) {
 			for ( int h=0; h<mapImage.getHeight(); h++) {

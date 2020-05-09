@@ -20,11 +20,11 @@ public class Tile {
 	}
 	
 	public void setFloor() {
-		tileImage = sprite.getSprite(0, 32, 16, 16);
+		tileImage = sprite.getSprite(0, 32, WIDTH, HEIGHT);
 	}
 	
 	public void setWall() {
-		tileImage = sprite.getSprite(16, 32, 16, 16);
+		tileImage = sprite.getSprite(16, 32, WIDTH, HEIGHT);
 	}
 	
 	public BufferedImage getImage() {
