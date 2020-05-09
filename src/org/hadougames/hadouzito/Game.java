@@ -23,14 +23,16 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	// Current level number
 	private int curLevel = 1;
 	// Game Hero
-	private Hero hero;
+	public static Hero hero;
+	// Game Draguinho
+	public static Draguinho draguinho;
 	// Game Screen
 	private Screen screen;
 	
 	/* Constants */
 	private final double FPS = 30.0;
-	private final int WIDTH  = 320;
-	private final int HEIGHT = 200;
+	public static final int WIDTH  = 320;
+	public static final int HEIGHT = 200;
 	private final int SCALE  = 5;
 	private final boolean DEBUG  = false;
 	
@@ -49,15 +51,14 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		// Loads the Screen
 		screen = new Screen("Hadouzito Adventures - Aplha");
 		screen.load(this);
-		
+		// Loads the Hero (pos_x: 0, pos_y: 0);
+		hero = new Hero(16, ( HEIGHT - 16 - 7) );
+		draguinho = new Draguinho(100, ( HEIGHT - 16 - 7) );
+		image = new BufferedImage(WIDTH, HEIGHT,BufferedImage.TYPE_INT_BGR);
+
 		// Loads the level
 		level = new Level();
 		level.load(curLevel);
-		
-		// Loads the Hero (pos_x: 0, pos_y: 0);
-		hero = new Hero(16, ( HEIGHT - 16 - 7) );
-		
-		image = new BufferedImage(WIDTH, HEIGHT,BufferedImage.TYPE_INT_BGR);
 		
 		// Starts Key Listening
 		this.addKeyListener(this);
@@ -95,6 +96,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		Graphics2D g2 = (Graphics2D) g; // Cast to Graphics2D
 		level.render(g2);
 		hero.render(g2);
+		draguinho.render(g2);
 		// ----------
 		
 		g.dispose(); // Garbage collector
@@ -122,20 +124,24 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
 	/* KeyListener methods */
 	public void keyPressed(KeyEvent e) {
-		String curAction = "stop";
+		String heroAction = "stop";
+		String dragAction = "stop";
 		
 		switch( e.getKeyCode() ) {
 			case KeyEvent.VK_RIGHT:
-				curAction = "walk-right";
+				heroAction = "walk-right";
+				dragAction = "walk-left";
 			break;
 			case KeyEvent.VK_LEFT:
-				curAction = "walk-left";
+				heroAction = "walk-left";
+				dragAction = "walk-right";
 			break;
 			case KeyEvent.VK_SPACE:
-				curAction = "jump";				
+				heroAction = "jump";				
 			break;
 		}
-		hero.doAction(curAction);
+		hero.doAction(heroAction);
+		draguinho.doAction(dragAction);
 	}
 
 	@Override

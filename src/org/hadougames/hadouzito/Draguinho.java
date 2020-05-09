@@ -3,11 +3,11 @@ package org.hadougames.hadouzito;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public class Hero extends Character {
+public class Draguinho extends Character {
 	// Gravity switch
 	private boolean gravity = false;
 	
-	private String spritePath = "/hadouzito.png";
+	private String spritePath = "/draguinho.png";
 	private String action;
 	private int points;
 	
@@ -15,13 +15,13 @@ public class Hero extends Character {
 	private int frameControl = 0;
 	private int maxFrameControl = 4;
 
-	private boolean dirRight = true;
+	private boolean dirRight = false;
 	
-	public Hero(int pos_x, int pos_y) {
+	public Draguinho(int pos_x, int pos_y) {
 		// Sets the character Sprite
 		setSprite( spritePath );
 		
-		setName("Hadouzito");
+		setName("Draguinho");
 		setWeight(4.5);
 		
 		action = "stop";
@@ -32,7 +32,6 @@ public class Hero extends Character {
 		 
 		// Load frames by action
 		loadFrames( action );
-		Camera.x = (int) (pos_x - (Game.WIDTH/2));
 	}
 	
 	public void doAction( String act ) {
@@ -55,8 +54,6 @@ public class Hero extends Character {
 				action = "stop";
 			break;	
 		}
-		
-		Camera.x = (int) (pos_x - (Game.WIDTH/2));
 	}
 	
 	public String getAction() {
@@ -66,14 +63,6 @@ public class Hero extends Character {
 	public int getPoints() {
 		return points;
 	}
-
-	public void setPosX( int pos_x ) {
-		this.pos_x = pos_x;
-	}
-
-	public void setPosY( int pos_y) {
-		this.pos_y = pos_y;
-	}	
 	
 	public double getPosX() {
 		return pos_x;
@@ -87,6 +76,14 @@ public class Hero extends Character {
 		return pos_y;
 	}
 
+	public void setPosX( int pos_x ) {
+		this.pos_x = pos_x;
+	}
+
+	public void setPosY( int pos_y) {
+		this.pos_y = pos_y;
+	}	
+	
 	public BufferedImage getFrame() {
 		// Update the frame list by action
 		loadFrames( getAction() );
@@ -142,6 +139,5 @@ public class Hero extends Character {
 			(int) (getPosY() - Camera.y), 
 			null
 		);
-
 	}
 }

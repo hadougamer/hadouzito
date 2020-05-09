@@ -63,11 +63,25 @@ public class Map {
 			for ( int h=0; h<mapImage.getHeight(); h++) {
 				System.out.println("X: " + posX + " - Y: " + posY);
 				Tile newTile = new Tile(posX, posY);
+				newTile.setWall();
 				
-				if( imgPixels[pixelPos] == 0xFFFFFFFF ) {
-					newTile.setWall();
-				} else {
-					newTile.setFloor();
+				switch( imgPixels[pixelPos] ) {
+					case 0xFFFFFFFF:
+						
+					break;
+					case 0xFF000000:
+						newTile.setFloor();
+					break;
+					case 0xFF0058ff:
+						// Player
+						Game.hero.setPosX(posX);
+						Game.hero.setPosY(posY);
+					break;
+					case 0xFF49ff00:
+						// Draguinho
+						Game.draguinho.setPosX(posX);
+						Game.draguinho.setPosY(posY);						
+					break;
 				}
 				
 				tiles.add( newTile );
@@ -87,8 +101,8 @@ public class Map {
 		for( int i=0; i<tiles.size(); i++ ) {
 			g.drawImage(
 					tiles.get(i).getImage(), 
-					tiles.get(i).getX(), 
-					tiles.get(i).getY(), 
+					(tiles.get(i).getX() - Camera.x), 
+					(tiles.get(i).getY() - Camera.y), 
 					null
 				);
 
